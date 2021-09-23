@@ -16,5 +16,9 @@ namespace EntityLayer.Concrete
         public string Content { get; set; }
         public DateTime CommentDate { get; set; }
         public bool Status { get; set; }
+
+        //Blog entitysinin primary key ismi de BlogId olmak zorunda
+        public int BlogId { get; set; }
+        public Blog Blog { get; set; }
     }
 }

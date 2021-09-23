@@ -19,6 +19,7 @@ namespace EntityLayer.Concrete
         //İliskili tablolarda silme islemi problem olusturdugundan dolayi
         //biz bu categoryi silmek yerine onun durumunu aktif veya pasif yapacagiz
         //o yuzden bu Status bool degiskenini kullanacagiz
-        public bool CategoryStatus { get; set; } 
+        public bool CategoryStatus { get; set; }
+        public List<Blog> Blogs { get; set; } //ilişki için
     }
 }
