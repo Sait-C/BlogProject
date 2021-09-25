@@ -34,6 +34,11 @@ namespace DataAccessLayer.Concrete.EntityFramework
             return c.Categories.Find(id);
         }
 
+        public void Insert(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Category category)
         {
             c.Update(category);

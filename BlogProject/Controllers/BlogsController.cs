@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace BlogProject.Controllers
 {
-    public class CategoriesController : Controller
+    public class BlogsController : Controller
     {
-        CategoryManager categoryManager =
-            new CategoryManager(new EfCategoryRepository());
+        BlogManager blogManager = new BlogManager(new EfBlogRepository());
+
+        //Burasi bizim bloglari listeleyecegimiz yer olacak.
         public IActionResult Index()
         {
-            var values = categoryManager.GetAll();
+            var values = blogManager.GetAll();
             return View(values);
         }
     }

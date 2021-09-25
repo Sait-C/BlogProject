@@ -46,6 +46,11 @@ namespace DataAccessLayer.Concrete.EntityFramework
             }
         }
 
+        public void Insert(Blog t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Blog blog)
         {
             using(var c = new Context())

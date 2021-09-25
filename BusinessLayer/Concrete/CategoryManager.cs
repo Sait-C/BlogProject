@@ -17,35 +17,38 @@ namespace BusinessLayer.Concrete
         //cagirayim ve onunla islem yapayim
 
 
-        EfCategoryRepository efCategoryRepository;
-        public CategoryManager()
+        //EfCategoryRepository efCategoryRepository = new EfCategoryRepository();
+        //Boylece EntityFrameworke olan bağımlılığımızdan kurtulduk.
+        //Dependency Injectiona daha uygun oldu.
+        ICategoryDal _categoryDal;
+        public CategoryManager(ICategoryDal categoryDal)
         {
-            efCategoryRepository = new EfCategoryRepository();
+            _categoryDal = categoryDal;
         }
 
         public void Add(Category category)
         {
-            efCategoryRepository.Insert(category);
+            _categoryDal.Insert(category);
         }
 
         public void Delete(Category category)
         {
-            efCategoryRepository.Delete(category);
+            _categoryDal.Delete(category);
         }
 
         public List<Category> GetAll()
         {
-            return efCategoryRepository.GetAll();
+            return _categoryDal.GetAll();
         }
 
         public Category GetById(int id)
         {
-            return efCategoryRepository.GetById(id);
+            return _categoryDal.GetById(id);
         }
 
         public void Update(Category category)
         {
-            efCategoryRepository.Update(category);
+            _categoryDal.Update(category);
         }
     }
 }
