@@ -15,7 +15,15 @@ namespace BlogProject.Controllers
         //Burasi bizim bloglari listeleyecegimiz yer olacak.
         public IActionResult Index()
         {
-            var values = blogManager.GetAll();
+            //var values = blogManager.GetAll();
+            //blogun kategori bilgilerine de erismek istiyorum
+            var values = blogManager.GetAllWithCategory();
+            return View(values);
+        }
+
+        public IActionResult BlogDetails(int id)
+        {
+            var values = blogManager.GetBlogById(id);
             return View(values);
         }
     }

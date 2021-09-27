@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,12 @@ namespace DataAccessLayer.Abstract
         void Insert(T t);
         void Delete(T t);
         void Update(T t);
-        List<T> GetAll();
+
+        //Şartlı listeleme yapmak istersek, filter parametresi ekleriz
+        //Şartlı listeleme yapmak istemeyip tum veriyi getirmek istersek
+        //Filter parametresi gondermeyiz ve default olarak null olur
+        List<T> GetAll(Expression<Func<T, bool>> filter = null);
+
         T GetById(int id);
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,12 +19,18 @@ namespace DataAccessLayer.Concrete.EntityFramework
             }
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll(Expression<Func<T, bool>> filter = null)
         {
             using (var c = new Context())
             {
                 //c.Set<T>() -> c.Blogs gibi
-                return c.Set<T>().ToList();
+                //Eger T Blog ise c.Set<T>() = c.Blogs
+                //Eger T Category ise c.Set<T>() = c.Categories
+                //return c.Set<T>().ToList();
+
+                return filter == null
+                    ? c.Set<T>().ToList()
+                    : c.Set<T>().Where(filter).ToList();
             }
         }
 

@@ -9,6 +9,8 @@ namespace DataAccessLayer.Abstract
 {
     public interface IBlogDal : IGenericDal<Blog>
     {
+        //Bu methoda sadece bloglara ozel oldugu icin burada tanimladim.
+        List<Blog> GetAllWithCategory();
     }
 }
 
