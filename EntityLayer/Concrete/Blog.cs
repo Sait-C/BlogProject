@@ -24,6 +24,13 @@ namespace EntityLayer.Concrete
         //ilişkisi alınacak entity türünde
         public Category Category { get; set; }
 
+        //İliskili oldugu Writerin id'si
+        public int WriterId { get; set; }
+
+        //İliskili oldugu writer
+        public Writer writer { get; set; }
+
+
         //Bir blogun birden fazla yorumu olabilir
         public List<Comment> Comments { get; set; }
     }
