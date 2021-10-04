@@ -15,22 +15,36 @@
         <h3 class="tittle">Register Now</h3>
         <div class="inner-sec">
             <div class="login p-5 bg-light mx-auto mw-100">
-                <form method="post">
+                @*(yonlendirecegi action, index hangi controllerda, peki bu ne zaman calisacak)*@
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Full Name</label>
-
-                            <input type="text" class="form-control" id="validationDefault01" name="FullName" placeholder="" required="">
+                            @*Html.TextBoxFor(x => x.FullName) seklinde yapilmasi daha iyi olur.
+                                fakat ben bu document icin model hakkımı RegisterViewModel icin 
+                                kullandigimdan x.FullName yazarak Writer'in FullNamesine 
+                                ulasamiyorum o yuzden TextBox kullanip ilgili propertynin
+                                adini yaziyorum*@
+                            @Html.TextBox("FullName")
+                            @*Html.ValidationMessageFor(x=>x.FullName)*@
+                            @Html.ValidationMessage("FullName")
+                            @*<input type="text" class="form-control" id="validationDefault01" 
+                                name="FullName" placeholder="" required="">*@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom02">Email</label>
-                            <input type="email" class="form-control" id="validationDefault02" name="Email" placeholder="" required="">
+                            @Html.TextBox("Email")
+                            @Html.ValidationMessage("Email")
+                            @*<input type="email" class="form-control" id="validationDefault02" name="Email" placeholder="" required="">*@
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1 mb-2">Password</label>
-                            <input type="password" class="form-control" id="password1" name="Password" placeholder="" required="">
+                            @Html.TextBox("Password")
+                            @Html.ValidationMessage("Password")
+                            @*<input type="password" class="form-control" id="password1" name="Password" placeholder="" required="">*@
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="ConfirmPassword" class="control-label"></label>
@@ -42,15 +56,16 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1 mb-2">Image Path</label>
-                            <input type="text" class="form-control" id="password1" name="WriterImage" placeholder="" required="">
+                            @Html.TextBox("WriterImage")
+                            @Html.ValidationMessage("WriterImage")
+                            @*<input type="text" class="form-control" id="password1" name="WriterImage" placeholder="" required="">*@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary submit mb-4">Register</button>
                     <p>
                         <a href="#" id="btn1">By clicking Signup, I agree to your terms</a>
                     </p>
-                </form>
-
+                }
             </div>
         </div>
     </div>
