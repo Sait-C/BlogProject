@@ -17,7 +17,7 @@ namespace BlogProject.Controllers
         {
             //var values = blogManager.GetAll();
             //blogun kategori bilgilerine de erismek istiyorum
-            var values = blogManager.GetAllWithCategory();
+            var values = blogManager.GetAllWithCategory(); //eager laoding
             return View(values);
         }
 
