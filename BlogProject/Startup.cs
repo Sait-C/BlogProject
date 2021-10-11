@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,21 @@ namespace BlogProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSession();
+
+            //Proje seviyesinde authorize
+            services.AddMvc(config =>
+            {
+                //guven, politika
+                //simdi sen bana burda bir tane
+                //authorization policy builder isimli sinifi newleyip
+                //buna bagli olarak authenticate zorunlu kilan method yazmam gerekiyor
+                var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser() //sisteme login olmasi
+                            .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +66,8 @@ namespace BlogProject
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();   
 
             app.UseRouting();
 
