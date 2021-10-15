@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.Concrete;
-using DataAccessLayer.Concrete;
+using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System;

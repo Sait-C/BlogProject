@@ -47,6 +47,11 @@ namespace BusinessLayer.Concrete
             return _blogDal.GetAll(b => b.BlogId == id);
         }
 
+        public List<Blog> GetLastBlogsWithCount(int count)
+        {
+            return _blogDal.GetAll().Take(count).ToList();
+        }
+
         public Blog GetById(int id)
         {
             return _blogDal.GetById(id);
