@@ -21,9 +21,18 @@
         <tr>
             <td>@item.BlogId</td>
             <td>@item.Title</td>
-            <td>@item.CreatedDate</td>
-            <td>@item.CategoryID</td>
-            <td>@item.Status</td>
+            <td>@item.CreatedDate.ToShortDateString()</td>
+            <td>@item.Category.CategoryName</td>
+            <td>
+                @if (item.Status)
+                {
+                    <span class="badge badge-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge badge-secondary">Pasif</span>
+                }
+            </td>
             <td><a href="#" class="btn btn-danger">Delete</a></td>
             <td><a href="#" class="btn btn-warning">Edit</a></td>
         </tr>

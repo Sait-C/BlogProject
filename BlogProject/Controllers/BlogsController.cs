@@ -36,7 +36,7 @@ namespace BlogProject.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var values = blogManager.GetAllByWriter(1);
+            var values = blogManager.GetAllWithCategoryByWriterId(1);
             return View(values);
         }
 
