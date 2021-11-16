@@ -17,6 +17,7 @@ namespace BlogProject.Controllers
     public class BlogsController : Controller
     {
         BlogManager blogManager = new BlogManager(new EfBlogRepository());
+        CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
 
         //Burasi bizim bloglari listeleyecegimiz yer olacak.
         public IActionResult Index()
@@ -43,7 +44,7 @@ namespace BlogProject.Controllers
         [HttpGet]
         public IActionResult BlogAdd()
         {
-            CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+    
             List<SelectListItem> category_values = (from x in categoryManager.GetAll()
                                                     select new SelectListItem
                                                     {
@@ -79,6 +80,47 @@ namespace BlogProject.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            //silmek istedigimiz Blog entitysini bulalim
+            var blog_value = blogManager.GetById(id);
+            //ve veritabanindan silelim
+            blogManager.Delete(blog_value);
+            return RedirectToAction("BlogListByWriter");
+        }
+
+        [HttpGet]
+        public IActionResult EditBlog(int id)
+        {
+            //sayfa yuklendigi zaman sen bana bi verileri getir
+            var blogValue = blogManager.GetById(id);
+            List<SelectListItem> category_values = (from x in categoryManager.GetAll()
+                                                    select new SelectListItem
+                                                    {
+                                                        //benim burada amacim:
+                                                        //bloglari eklerken, bloglari sectigim zaman id degerinin gonderilmesi
+                                                        //dropdown aracinda
+                                                        Text = x.CategoryName,
+                                                        Value = x.CategoryID.ToString()
+                                                    }).ToList();
+            ViewBag.categoryvalues = category_values;
+            return View(blogValue);
+        }
+
+        [HttpPost]
+        public IActionResult EditBlog(Blog blog)
+        {
+            //bir http post islemi oldugu zaman update islemi yap
+            var blogToUpdate = blogManager.GetById(blog.BlogId);
+            blogToUpdate.BlogImage = blog.BlogImage;
+            blogToUpdate.CategoryID = blog.CategoryID;
+            blogToUpdate.Content = blog.Content;
+            blogToUpdate.Title = blog.Title;
+            blogToUpdate.ThumbnailImage = blog.ThumbnailImage;
+            blogManager.Update(blogToUpdate);
+            return RedirectToAction("BlogListByWriter");
         }
     }
 }
