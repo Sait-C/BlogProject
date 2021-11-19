@@ -53,7 +53,7 @@ namespace BlogProject.Controllers
             {
                 p.Status = true;
                 p.About = "Test";
-                writerManager.WriterAdd(p);
+                writerManager.Add(p);
                 //Redirect to main page after the action
                 return RedirectToAction("Index", "Blogs");
             }
