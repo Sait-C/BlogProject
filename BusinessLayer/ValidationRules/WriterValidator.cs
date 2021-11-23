@@ -15,9 +15,10 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.Email).EmailAddress().NotEmpty().WithMessage(
                 "Email field cannot be blank!");
 
+            /*
             RuleFor(x => x.WriterImage).NotEmpty().WithMessage(
                 "Image field cannot be blank!");
-
+            */
             RuleFor(x => x.FullName).MinimumLength(2).WithMessage(
                 "Full Name must be at least 2 characters");
 
