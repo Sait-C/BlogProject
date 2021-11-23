@@ -1,0 +1,58 @@
+﻿@using EntityLayer.Concrete
+@model List<Notification>
+
+@{
+    string elapsedTime = "";
+    DateTime now = DateTime.Now;
+}
+
+@{
+    ViewData["Title"] = "AllNotifications";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>AllNotifications</h1>
+<table class="table table-borderless">
+    <tr>
+        <th>#</th>
+        <th>Notification Content</th>
+        <th>Notification Date</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Details</td>
+            @{
+                TimeSpan time = now.Subtract(item.Date);
+                if (time.Days == 0)
+                {
+                    if (time.Minutes == 0 && time.Hours == 0)
+                    {
+                        elapsedTime = "Now";
+                    }
+                    else if (time.Minutes > 0 && time.Hours == 0)
+                    {
+                        elapsedTime = $"{time.Minutes} minutes ago";
+                    }
+                    else
+                    {
+                        elapsedTime = $"{time.Hours} hours ago";
+                    }
+                }
+                else
+                {
+                    if (time.Hours == 0)
+                    {
+                        elapsedTime = $"{time.Days} days ago";
+                    }
+                    else if (time.Hours > 0)
+                    {
+                        elapsedTime = $"{time.Days} days {time.Hours} hours ago";
+                    }
+                }
+            }
+            <td>@elapsedTime</td>
+        </tr>
+    }
+</table>
