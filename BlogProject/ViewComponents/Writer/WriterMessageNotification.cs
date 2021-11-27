@@ -10,13 +10,13 @@ namespace BlogProject.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        MessageManager messageManager = new MessageManager(new
-            EfMessageRepository());
+        Message2Manager messageManager = new Message2Manager(new
+            EfMessage2Repository());
         public IViewComponentResult Invoke()
         {
             //p degeri sessiondan gelen deger olacak simdilik manuel yazalim
-            string p = "coktasmuharrem@gmail.com";
-            var values = messageManager.GetAllByReceiver(p);
+            int p = 1;
+            var values = messageManager.GetAllByReceiverId(p);
             return View(values);
         }
     }

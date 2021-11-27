@@ -22,6 +22,23 @@ namespace DataAccessLayer.Concrete.EntityFramework
             optionsBuilder.UseSqlServer("server=(localdb)\\mssqllocaldb;database=CoreBlogDb;integrated security=true;");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message2>()
+                .HasOne(x => x.Sender)
+                .WithMany(y => y.MessagesAsWriterSender)
+                .HasForeignKey(z => z.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message2>()
+                .HasOne(x => x.Receiver)
+                .WithMany(y => y.MessagesAsWriterReceiver)
+                .HasForeignKey(z => z.ReceiverId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
+  
+
+
         public DbSet<About> Abouts { get; set; } //Sen bana Abouts u getir
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -32,5 +49,6 @@ namespace DataAccessLayer.Concrete.EntityFramework
         public DbSet<BlogRating> BlogRatings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Message2> Message2s { get; set; }
     }
 }
