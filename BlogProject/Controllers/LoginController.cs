@@ -35,13 +35,15 @@ namespace BlogProject.Controllers
                     //Talepler, Yetkiler
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, p.Email)
+                        new Claim(ClaimTypes.Email, p.Email),
+                        new Claim(ClaimTypes.Name, dataValue.FullName),
+                        new Claim(ClaimTypes.NameIdentifier, dataValue.Id.ToString())
                     };
                     //ikinci parametreye herhangi string deger gondermen gerekiyor
                     var userIdentity = new ClaimsIdentity(claims, "a");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);
-                    return RedirectToAction("Index", "Writer");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {

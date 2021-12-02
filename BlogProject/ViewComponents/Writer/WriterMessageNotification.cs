@@ -16,7 +16,7 @@ namespace BlogProject.ViewComponents.Writer
         {
             //p degeri sessiondan gelen deger olacak simdilik manuel yazalim
             int p = 1;
-            var values = messageManager.GetAllByReceiverId(p);
+            var values = messageManager.GetAllWithSenderByReceiverId(p);
             return View(values);
         }
     }

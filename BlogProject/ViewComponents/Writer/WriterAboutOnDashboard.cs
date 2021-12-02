@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using CoreLayer.Extensions;
 using DataAccessLayer.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,12 @@ namespace BlogProject.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var values = writerManager.GetWriterById(1);
+            /*
+             * null-coalescing operator ??
+             * -> User.GetId() == null ? default(int) : User.GetId().Value;
+             * */
+            int loggedUserId = User.GetId() ?? default(int);
+            var values = writerManager.GetWriterById(loggedUserId);
             return View(values);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using BlogProject.Models;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreLayer.Extensions;
 using CoreLayer.Utilities.Helpers;
 using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlogProject.Controllers
@@ -27,6 +29,9 @@ namespace BlogProject.Controllers
         //[Authorize] sadece bu sayfa icin gecerli olur
         public IActionResult Index()
         {
+            ViewBag.Email = User.GetEmail();
+            ViewBag.FullName = User.GetFullName();
+            ViewBag.UserId = User.GetId();
             return View();
         }
 
@@ -39,7 +44,7 @@ namespace BlogProject.Controllers
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var values = writerManager.GetById(1);
+            var values = writerManager.GetById(User.GetId().Value);
             UpdateWriterViewModel model = new UpdateWriterViewModel();
             model.About = values.About;
             model.FullName = values.FullName;

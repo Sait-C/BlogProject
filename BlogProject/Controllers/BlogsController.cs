@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreLayer.Extensions;
 using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -13,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace BlogProject.Controllers
 {
-    [AllowAnonymous]
     public class BlogsController : Controller
     {
         BlogManager blogManager = new BlogManager(new EfBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
 
         //Burasi bizim bloglari listeleyecegimiz yer olacak.
+        [AllowAnonymous]
         public IActionResult Index()
         {
             //var values = blogManager.GetAll();
@@ -28,6 +29,7 @@ namespace BlogProject.Controllers
             return View(values);
         }
 
+        [AllowAnonymous]
         public IActionResult BlogDetails(int id)
         {
             ViewBag.i = id;
@@ -37,7 +39,7 @@ namespace BlogProject.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var values = blogManager.GetAllWithCategoryByWriterId(1);
+            var values = blogManager.GetAllWithCategoryByWriterId(User.GetId().Value);
             return View(values);
         }
 
@@ -67,7 +69,7 @@ namespace BlogProject.Controllers
             {
                 blog.Status = true;
                 blog.CreatedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                blog.WriterId = 1;
+                blog.WriterId = User.GetId().Value;
                 blogManager.Add(blog);
 
                 return RedirectToAction("BlogListByWriter", "Blogs");
@@ -81,7 +83,7 @@ namespace BlogProject.Controllers
             }
             return View();
         }
-
+        
         public IActionResult DeleteBlog(int id)
         {
             //silmek istedigimiz Blog entitysini bulalim

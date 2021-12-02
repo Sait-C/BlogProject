@@ -38,6 +38,11 @@ namespace BusinessLayer.Concrete
             return _message2Dal.GetAll(x => x.ReceiverId == id);
         }
 
+        public List<Message2> GetAllWithSenderByReceiverId(int id)
+        {
+            return _message2Dal.GetAllWithSenderByReceiverId(id);
+        }
+
         public Message2 GetById(int id)
         {
             return _message2Dal.GetById(id);

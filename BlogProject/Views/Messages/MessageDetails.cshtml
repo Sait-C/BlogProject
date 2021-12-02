@@ -1,0 +1,20 @@
+﻿@model EntityLayer.Concrete.Message2
+
+@{
+    ViewData["Title"] = "MessageDetail";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>MessageDetail</h1>
+@Html.HiddenFor(x => x.Id, new { @class = "form-control" })
+<br />
+@Html.Label("Message Subject")
+@Html.TextBoxFor(x => x.Subject, 
+    new { @class = "form-control", disabled = "disabled" })
+<br />
+@Html.Label("Message Content")
+@Html.TextAreaFor(x => x.MessageDetails, 20, 3, 
+    new { @class = "form-control", disabled="disabled" })
+<br />
+<a href="/Messages/InBox/" class="btn btn-success">Back to Messages</a>
+
